@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import twitter.model.Ricerca;
 import twitter.model.Risultati;
 import twitter.validator.RicercaValidator;
+import twitter4j.JSONArray;
 import twitter4j.JSONObject;
 import searchengine.Queries;
 
@@ -55,7 +56,7 @@ public class BaseController {
 			return "index";
 		}
 		else{
-		JSONObject ris = q.search(ricerca.getLocation(), ricerca.getInterests(), ricerca.getRadioInt(), ricerca.getHashtags(), ricerca.getRadioHash(), ricerca.getAge(), ricerca.getGender());
+		JSONArray ris = q.search(ricerca.getLocation(), ricerca.getInterests(), ricerca.getRadioInt(), ricerca.getHashtags(), ricerca.getRadioHash(), ricerca.getAge(), ricerca.getGender());
 	    model.addAttribute("risultati", ris);
 		}
 		return "index";

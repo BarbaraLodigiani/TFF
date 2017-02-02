@@ -72,15 +72,16 @@ public class Results {
 	}
 	
 
-	public static JSONObject queryResults(ArrayList<Document> results, ArrayList<String> tweetsresults) throws MalformedURLException, IOException{
+	public static JSONArray queryResults(ArrayList<Document> results, ArrayList<String> tweetsresults) throws MalformedURLException, IOException{
 		
 		resultsStore.addAll(results);
 		tweetsStore.addAll(tweetsresults);
 		
 		JSONObject jObject = new JSONObject();
+	    JSONArray jArray = new JSONArray();
+
 		try
 		{
-		    JSONArray jArray = new JSONArray();
 		    int i = 0;
 		    for (Document result : resultsStore)
 		    {
@@ -102,6 +103,6 @@ public class Results {
 		    jse.getStackTrace();
 		}
 		
-		return jObject;
+		return jArray;
 	}
 }
