@@ -8,6 +8,29 @@
 
 
 	<dependencies>
+
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
@@ -105,7 +128,7 @@
 			<artifactId>twitter4j-core</artifactId>
 			<version>4.0.4</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.twitter4j/twitter4j-async -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>
@@ -134,27 +157,34 @@
 			<version>4.0.4</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>4.3.5.RELEASE</version>
+			<groupId>com.google.maps</groupId>
+			<artifactId>google-maps-services</artifactId>
+			<version> 0.1.9</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+
+		<!-- https://mvnrepository.com/artifact/com.cybozu.labs/langdetect -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>4.3.5.RELEASE</version>
+			<groupId>com.cybozu.labs</groupId>
+			<artifactId>langdetect</artifactId>
+			<version>1.1-20120112</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>4.3.5.RELEASE</version>
-		</dependency>
 
+
+
+
+
+<dependency>
+		    <groupId>uclassify-java-sdk</groupId>
+		  	<artifactId>uclassify-java-sdk</artifactId>
+		    <version>0.1</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/lib/uclassify-java-sdk.jar</systemPath>
+		</dependency>
+		
+		
 
 
 

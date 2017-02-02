@@ -1,6 +1,11 @@
 package twitter.controller;
-import java.util.Map;
 
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,46 +15,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import twitter.model.Ricerca;
+import twitter.model.Risultati;
 import twitter.validator.RicercaValidator;
+import twitter4j.JSONObject;
+import searchengine.Queries;
 
 
 
 @Controller
 public class BaseController {
 	
+	private static Queries q = new Queries();
+	
 	@Autowired
-	private RicercaValidator ricercaValidator;
+	RicercaValidator ricercaValidator;
 	
 	
-	@RequestMapping(value={"/"}, method = RequestMethod.GET, produces = "text/plain;charset = UTF-8")
+	@RequestMapping(value={"/"}, method = RequestMethod.GET)
 	public String hello(Model model) {
-		Ricerca ricerca =new Ricerca();
-		model.addAttribute("FormRicerca", ricerca);
+		model.addAttribute("FormRicerca", new Ricerca());
 		//returns the view name
 		return "index";
 	}
 	
 	
-	@RequestMapping(value={"/ricerca"}, method = RequestMethod.POST, produces = "text/plain;charset = UTF-8")
-	public String ricerca(@ModelAttribute("FormRicerca") Ricerca ricerca, BindingResult bind, Model model) {
-		System.out.println(ricerca.getLocation());
-		System.out.println(ricerca.getInterests());
-		System.out.println(ricerca.getRadioInt());
-		System.out.println(ricerca.getHashtags());
-		System.out.println(ricerca.getRadioHash());
-		System.out.println(ricerca.getAge());
-		System.out.println(ricerca.getGender());
-
-		ricercaValidator.validate(ricerca, bind);
-		
-		if(bind.hasErrors()){
+	@RequestMapping(value={"/ricerca"}, method = RequestMethod.POST)
+	public String ricerca(@ModelAttribute("FormRicerca") Ricerca ricerca, BindingResult result, Model model) throws IOException, ParseException, InvalidTokenOffsetsException, InterruptedException {
+//		System.out.println(ricerca.getLocation());
+//		System.out.println(ricerca.getInterests());
+//		System.out.println(ricerca.getRadioInt());
+//		System.out.println(ricerca.getHashtags());
+//		System.out.println(ricerca.getRadioHash());
+//		System.out.println(ricerca.getAge());
+//		System.out.println(ricerca.getGender());
+//
+		ricercaValidator.validate(ricerca, result);
+//		
+		if(result.hasErrors()){
 			return "index";
 		}
-
-		//returns the view name
+		else{
+		JSONObject ris = q.search(ricerca.getLocation(), ricerca.getInterests(), ricerca.getRadioInt(), ricerca.getHashtags(), ricerca.getRadioHash(), ricerca.getAge(), ricerca.getGender());
+	    model.addAttribute("risultati", ris);
+		}
 		return "index";
 	}
 	
+	
+
 }
 
 
