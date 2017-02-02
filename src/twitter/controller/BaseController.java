@@ -18,6 +18,7 @@ import twitter.model.Ricerca;
 import twitter.model.Risultati;
 import twitter.validator.RicercaValidator;
 import twitter4j.JSONArray;
+import twitter4j.JSONException;
 import twitter4j.JSONObject;
 import searchengine.Queries;
 
@@ -56,8 +57,15 @@ public class BaseController {
 			return "index";
 		}
 		else{
-		JSONArray ris = q.search(ricerca.getLocation(), ricerca.getInterests(), ricerca.getRadioInt(), ricerca.getHashtags(), ricerca.getRadioHash(), ricerca.getAge(), ricerca.getGender());
+		JSONObject ris = q.search(ricerca.getLocation(), ricerca.getInterests(), ricerca.getRadioInt(), ricerca.getHashtags(), ricerca.getRadioHash(), ricerca.getAge(), ricerca.getGender());
 	    model.addAttribute("risultati", ris);
+		try {
+			model.addAttribute("risSize", ris.getJSONArray("ResultList")
+					.length());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		}
 		return "index";
 	}

@@ -132,7 +132,7 @@ footer {
 				</h4>
 
 				<div class="container-fluid bg-3 text-center">
-					<h3>Where To Find Me?</h3>
+					<h3>risultati: ${risSize}</h3>
 					<div class="row">
 						<div class="col-sm-4" id="risultati">
 							<c:if test="${not empty risultati}">

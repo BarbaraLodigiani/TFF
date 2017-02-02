@@ -120,7 +120,7 @@ public class Queries {
 		return listOfLocation;
 	}
 	
-	public static JSONArray search(String getLoc,String getInter,String getInterBool,String getHash,String getHashBool,String getAge,String getGender) throws IOException, ParseException, InvalidTokenOffsetsException, InterruptedException{	
+	public static JSONObject search(String getLoc,String getInter,String getInterBool,String getHash,String getHashBool,String getAge,String getGender) throws IOException, ParseException, InvalidTokenOffsetsException, InterruptedException{	
 		long startTime = System.currentTimeMillis();
 		TweetsAnalyzer analyzerTweets = new TweetsAnalyzer();
 		TweetsStemAnalyzer analyzerTweetsStem = new TweetsStemAnalyzer();
