@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Twitter Following Finder</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -187,6 +187,11 @@ position:relative;
 	-webkit-transition: padding 400ms ease-in-out;
 	transition: padding 400ms ease-in-out;
 }
+.panel.panel-card:hover .tweet {
+	font-size: 12px;
+	-webkit-transition: font-size 400ms ease-in-out;
+	transition: font-size 400ms ease-in-out;
+}
 
 .panel .tweet{
   font-size:10px;
@@ -195,8 +200,33 @@ position:relative;
   line-height: 11px;
   color:grey;
   margin:2px;
+display:block;
+  position:relative;
+
 }
 
+.tweet:before{
+content:'“';
+display:block;
+position:absolute;
+top:-5px;
+left:-5px;
+font-size:20px;
+font-family:Georgia;
+color:#555;
+}
+
+
+.tweet:after{
+content:'”';
+display:block;
+position:absolute;
+bottom:-10px;
+right:5px;
+font-size:20px;
+font-family:Georgia;
+color:#555;
+}
 .numris{
 position:absolute;
 top:0px;
@@ -296,10 +326,10 @@ margin:-10px 0 10px 0;
 			<div class="col-sm-9 risultati">
 						<c:choose>
 							<c:when test="${empty risSize}">
-								<div class="numris"><h3>Effettua una ricerca!</h3></div>
+								<div class="numris"><h3>Search for Tweeps!</h3></div>
 							</c:when>
 							<c:otherwise>
-								<div class="numris"><h3>risultati: ${risSize}</h3></div>
+								<div class="numris"><h3>Results: ${risSize}</h3></div>
 							</c:otherwise>
 						</c:choose>
 				<c:set var="risindex" value="${risSize-1}"/>
