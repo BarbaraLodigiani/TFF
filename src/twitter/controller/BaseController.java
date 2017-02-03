@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+
 import twitter.model.Ricerca;
 import twitter.model.Risultati;
 import twitter.validator.RicercaValidator;
@@ -58,8 +60,12 @@ public class BaseController {
 		}
 		else{
 		JSONObject ris = q.search(ricerca.getLocation(), ricerca.getInterests(), ricerca.getRadioInt(), ricerca.getHashtags(), ricerca.getRadioHash(), ricerca.getAge(), ricerca.getGender());
-	    model.addAttribute("risultati", ris);
 		try {
+		    if(ris.getJSONArray("ResultList").length()!= 0)
+				model.addAttribute("risultati", ris.getJSONArray("ResultList"));
+			else
+				model.addAttribute("risultati", "");
+					
 			model.addAttribute("risSize", ris.getJSONArray("ResultList")
 					.length());
 		} catch (JSONException e) {

@@ -290,18 +290,18 @@ public class Queries {
 
 			String fragment = null;
 			TokenStream tokenStream = null;
-			if(!field.equals("location") && !field.equals("age") && !field.equals("sex")){
-				try{
-					 tokenStream = new TweetsAnalyzer().tokenStream("tweets", new StringReader(book.get("tweets")));
-			         fragment = highlighter.getBestFragment(tokenStream, book.get("tweets"));
-				} catch (NullPointerException e){
-					 tokenStream = new TweetsStemAnalyzer().tokenStream(field, new StringReader(contents));
-				     fragment = highlighter.getBestFragment(tokenStream, contents);				
-				}
-			} 
-			else {
-			    fragment = "<B></B>"+book.get("tweetsStem").substring(0, 400);
-			}
+//			if(!field.equals("location") && !field.equals("age") && !field.equals("sex")){
+//				try{
+//					 tokenStream = new TweetsAnalyzer().tokenStream("tweets", new StringReader(book.get("tweets")));
+//			         fragment = highlighter.getBestFragment(tokenStream, book.get("tweets"));
+//				} catch (NullPointerException e){
+//					 tokenStream = new TweetsStemAnalyzer().tokenStream(field, new StringReader(contents));
+//				     fragment = highlighter.getBestFragment(tokenStream, contents);				
+//				}
+//			} 
+//			else {
+//			    fragment = "<B></B>"+book.get("tweetsStem").substring(0, 400);
+//			}
 			if(fragment == null){
 			    fragment = "<B></B>"+book.get("tweetsStem").substring(0, 400);
 			}
@@ -315,7 +315,7 @@ public class Queries {
 	        	 }
 	        }
 			booksfound.add(book);
-//			tweetsfound.add("");
+			tweetsfound.add("");
 		}
 		
 		long endTime   = System.currentTimeMillis();

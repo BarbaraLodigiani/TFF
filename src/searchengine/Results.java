@@ -86,14 +86,17 @@ public class Results {
 		    for (Document result : resultsStore)
 		    {
 		         JSONObject resultJSON = new JSONObject();
-		         
+
 		         resultJSON.put("tweet", tweetsStore.get(i));
 		         resultJSON.put("user", result.getField("user").stringValue());
 		         resultJSON.put("name", result.getField("name").stringValue());
 		         resultJSON.put("location", result.getField("location").stringValue());
 		         resultJSON.put("age", result.getField("age").stringValue());
 		         resultJSON.put("gender", result.getField("sex").stringValue());
-		         resultJSON.put("urlimg", result.getField("urlimg").stringValue());	
+		         if(result.getField("urlimg").equals(""))
+		        	 resultJSON.put("urlimg", "img/Twitter_bird_logoold.png");	
+		         else
+		        	 resultJSON.put("urlimg", result.getField("urlimg").stringValue().replaceAll("_normal", ""));	
 
 		         jArray.put(resultJSON);
 		         i++;
