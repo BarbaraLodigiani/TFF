@@ -23,9 +23,6 @@ public class RicercaValidator implements Validator{
 		// TODO Auto-generated method stub
 		Ricerca ricerca = (Ricerca) o;
 		
-		
-		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "location", "location.required");
-		
 		if(ricerca.getLocation().isEmpty() && ricerca.getInterests().isEmpty() &&
 				ricerca.getHashtags().isEmpty() && ricerca.getAge().isEmpty() && 
 				ricerca.getGender().isEmpty()){			
@@ -37,9 +34,26 @@ public class RicercaValidator implements Validator{
 		}
 		
 		
-//		if((!(ricerca.getInterests().isEmpty())) && ricerca.getRadioInt().isEmpty() ){
-//			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "radioInt", "radioInt.required");
-//		}
+		if(ricerca.getLocation().matches("[0-9]+")){
+			System.out.println("errore");
+			errors.rejectValue("location", "locN.required");
+			
+		}
+		
+		String[] hashTrim = ricerca.getHashtags().split(" ");
+		boolean errore =false;
+		//System.out.println("hastag: "+ hashtag[0].toString());
+		for(int i=0; i<hashTrim.length; i++){
+			System.out.println(hashTrim[i]);
+			if(hashTrim[i].toString().matches("[^a-zA-Z][0-9][^a-zA-Z]")){
+				errore =true;
+			}
+		}
+		System.out.println("errore"+errore);
+		if(errore==true){
+			errors.rejectValue("hashtags", "hashN.required");
+		}
+
 		
 	}
 
