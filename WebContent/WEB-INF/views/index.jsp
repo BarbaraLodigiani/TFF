@@ -219,6 +219,7 @@ color:#555;
 
 .tweet:after{
 content:'”';
+
 display:block;
 position:absolute;
 bottom:-10px;
