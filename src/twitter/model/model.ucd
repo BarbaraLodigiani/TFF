@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="model" size="1171,507" id="twitter.model" metadata="uml2-1.0" initialized="true" tag="10" key="32303037303533312D31302054776974746572466F6C6C6F77696E6746696E646572">
+  <children xsi:type="editmodel:ClassEditModel" name="Ricerca" location="60,50" size="112,183" id="twitter.model/Ricerca" runTimeClassModel="hashtags,gender,radioInt,index,location,interests,radioHash,age">
+    <children xsi:type="editmodel:CompartmentEditModel" size="89,144">
+      <children xsi:type="editmodel:AttributeEditModel" name="age" id="twitter.model/Ricerca#age"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="gender" id="twitter.model/Ricerca#gender"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="hashtags" id="twitter.model/Ricerca#hashtags"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="index" id="twitter.model/Ricerca#index"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="interests" id="twitter.model/Ricerca#interests"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="location" id="twitter.model/Ricerca#location"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="radioHash" id="twitter.model/Ricerca#radioHash"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="radioInt" id="twitter.model/Ricerca#radioInt"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Risultati" location="212,50" size="104,57" id="twitter.model/Risultati" runTimeClassModel="risultato">
+    <children xsi:type="editmodel:CompartmentEditModel" size="81,18">
+      <children xsi:type="editmodel:AttributeEditModel" name="risultato" id="twitter.model/Risultati#risultato"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" level="-1" showScope="InPackage" properties="wireOptions=1;Product=eUML2"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
