@@ -18,6 +18,9 @@ public class GetUsers {
 		private static ArrayList<User> check_users;
 		
 		private static TweetMap tmap;
+		/**
+		 * @uml.property  name="working"
+		 */
 		private boolean working = true;
 //		private static ArrayList<Status> statuses;
 		// TODO Auto-generated method stub
@@ -66,6 +69,10 @@ public class GetUsers {
 
 	    }
 
+		/**
+		 * @return
+		 * @uml.property  name="working"
+		 */
 		public boolean isWorking()
 		{
 			return working;

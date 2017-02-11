@@ -74,8 +74,14 @@ public class Results {
 
 	public static JSONObject queryResults(ArrayList<Document> results, ArrayList<String> tweetsresults) throws MalformedURLException, IOException{
 		
+		if(tweetsresults.contains("404")){
+			
+		}
+		
 		resultsStore.addAll(results);
 		tweetsStore.addAll(tweetsresults);
+		
+		
 		
 		JSONObject jObject = new JSONObject();
 	    JSONArray jArray = new JSONArray();

@@ -9,6 +9,10 @@ import twitter4j.*;
 
 public class TweetMap {
 	
+	/**
+	 * @uml.property  name="map"
+	 * @uml.associationEnd  qualifier="valueOf:java.lang.Long java.util.ArrayList"
+	 */
 	private HashMap<Long, ArrayList<Status>> map;
 	private static ArrayList<User> users;
 	

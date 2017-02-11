@@ -14,7 +14,15 @@ import com.uclassify.api._1.responseschema.Classification;
 
 public class Uclass {
 	
+	/**
+	 * @uml.property  name="factory"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
 	final UClassifyClientFactory factory;
+    /**
+	 * @uml.property  name="client"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
     final UClassifyClient client;
     private static boolean isWorking = true;
 

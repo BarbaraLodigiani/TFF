@@ -257,6 +257,13 @@ margin:-10px 0 10px 0;
 
 				<form:form action="ricerca" method="POST" commandName="FormRicerca">
 					<div class="form-group">
+					<div style="display:none">
+					<form:input type="text"  class="form-control" id="index"
+							path="index" />
+							</div>
+						<form:errors path="index" cssClass="error" />
+					</div>
+					<div class="form-group">
 						<label for="location">Locations:</label>
 						<form:input type="text" class="form-control" id="location"
 							path="location" />

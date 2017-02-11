@@ -5,8 +5,20 @@ import org.apache.lucene.document.IntField;
 import org.apache.lucene.document.TextField;
 
 public class Tweet {
+	/**
+	 * @uml.property  name="userTweet"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
 	private Document userTweet;
+	/**
+	 * @uml.property  name="tweetsField"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
 	private TextField tweetsField = null;
+	/**
+	 * @uml.property  name="tweetsStemField"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
 	private TextField tweetsStemField = null;
 	public Tweet(String user, String name, String location, String age, String sex, String urlimg, String tweets, String tweetsStem, String hashtags){
 		tweetsField = new TextField("tweets", tweets, Field.Store.YES);

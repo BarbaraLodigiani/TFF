@@ -31,6 +31,10 @@ public class BaseController {
 	
 	private static Queries q = new Queries();
 	
+	/**
+	 * @uml.property  name="ricercaValidator"
+	 * @uml.associationEnd  readOnly="true"
+	 */
 	@Autowired
 	RicercaValidator ricercaValidator;
 	

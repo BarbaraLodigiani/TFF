@@ -6,18 +6,18 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-<properties>
-	<jstl.version>1.2</jstl.version>
-</properties>
+	<properties>
+		<jstl.version>1.2</jstl.version>
+	</properties>
 	<dependencies>
 
-	<!-- jstl -->
-	<dependency>
-		<groupId>jstl</groupId>
-		<artifactId>jstl</artifactId>
-		<version>${jstl.version}</version>
-	</dependency>
-	
+		<!-- jstl -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -177,24 +177,36 @@
 			<groupId>com.cybozu.labs</groupId>
 			<artifactId>langdetect</artifactId>
 			<version>1.1-20120112</version>
+		</dependency>	
+
+		<dependency>
+			<groupId>uclassify-java-sdk</groupId>
+			<artifactId>uclassify-java-sdk</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/uclassify-java-sdk.jar</systemPath>
 		</dependency>
 
-
-
-
-
-
-<dependency>
-		    <groupId>uclassify-java-sdk</groupId>
-		  	<artifactId>uclassify-java-sdk</artifactId>
-		    <version>0.1</version>
-		    <scope>system</scope>
-		    <systemPath>${project.basedir}/lib/uclassify-java-sdk.jar</systemPath>
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.53.1</version>
 		</dependency>
-		
-		
 
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.10</version>
+		</dependency>
 
 
 	</dependencies>

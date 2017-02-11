@@ -240,10 +240,15 @@ public class Queries {
 	    } 	   
 //	    for (int i = 0; i < 150; ++i) System.out.println();
 
+	Directory directory;
+	try {
 		Path path = FileSystems.getDefault().getPath("index");
-		Directory directory = FSDirectory.open(path); 
-		IndexReader reader = DirectoryReader.open(directory);
-		IndexSearcher searcher = new IndexSearcher(reader);
+		directory = FSDirectory.open(path);
+
+	IndexReader reader = DirectoryReader.open(directory);
+	IndexSearcher searcher = new IndexSearcher(reader);
+
+		
 		Sort sort = new Sort(new SortField("tweets", Type.SCORE));
 		TopDocs topdocs = searcher.search(booleanQuery.build(), 5000, sort);
 		ScoreDoc[] resultsList = topdocs.scoreDocs;
@@ -318,6 +323,8 @@ public class Queries {
 			tweetsfound.add("");
 		}
 		
+	
+		
 		long endTime   = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
 		System.out.println(totalTime);
@@ -331,5 +338,16 @@ public class Queries {
 //		  System.out.println(layout.getSplitresults() +" splitpane a 60");
 		
 		return layout.queryResults(booksfound, tweetsfound);
+		
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		//e.printStackTrace();
+		ArrayList booksfound1 = new ArrayList();
+		
+		ArrayList<String> tweets1 = new ArrayList();
+		tweets1.add("404");
+		return layout.queryResults(booksfound1, tweets1) ;
+	} 
+	
 	}
 }

@@ -1,5 +1,13 @@
 package twitter.validator;
 
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -42,10 +50,10 @@ public class RicercaValidator implements Validator{
 		
 		String[] hashTrim = ricerca.getHashtags().split(" ");
 		boolean errore =false;
-		//System.out.println("hastag: "+ hashtag[0].toString());
+		System.out.println("hastag: "+ hashTrim[0]);
 		for(int i=0; i<hashTrim.length; i++){
 			System.out.println(hashTrim[i]);
-			if(hashTrim[i].toString().matches("[^a-zA-Z][0-9][^a-zA-Z]")){
+			if(hashTrim[i].matches("[^a-zA-Z][0-9]*[^a-zA-Z]")){
 				errore =true;
 			}
 		}
@@ -53,8 +61,17 @@ public class RicercaValidator implements Validator{
 		if(errore==true){
 			errors.rejectValue("hashtags", "hashN.required");
 		}
-
 		
+		Directory directory;
+		Path path = FileSystems.getDefault().getPath("index");
+		try {
+			directory = FSDirectory.open(path);
+			IndexReader reader = DirectoryReader.open(directory);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			errors.rejectValue("index", "index.required");
+		}
+
 	}
 
 }
