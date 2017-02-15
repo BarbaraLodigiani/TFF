@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ir.IndexTweet;
 import searchengine.Queries;
 import twitter.model.OAuthToken;
+import twitter.model.ObservableCrawling;
 import twitter.model.Ricerca;
 import twitter.model.TFFER;
 import twitter.validator.RicercaValidator;
@@ -63,6 +67,9 @@ public class BaseController {
 	 */
 	@Autowired
 	RicercaValidator ricercaValidator;
+
+
+
 
 	@SuppressWarnings("null")
 	@RequestMapping(value = { "/" }, method = { RequestMethod.GET,
@@ -293,6 +300,39 @@ public class BaseController {
 
 		return mJSONArray;
 	}
+
+	
+	
+	
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin(Model model,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+
+			
+
+
+		return "admin";
+	}
+
+
+
+@RequestMapping(value = "/admin/crawling", method = RequestMethod.GET)
+@ResponseBody
+public String crawling(Model model,
+		HttpServletRequest request, HttpServletResponse response) 
+		throws Exception {
+
+	IndexTweet crawling = new IndexTweet();
+	crawling.crawl();
+		
+
+
+	return "";
+}
+
+
 
 
 }

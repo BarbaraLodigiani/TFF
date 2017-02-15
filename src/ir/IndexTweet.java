@@ -1,10 +1,15 @@
 package ir;
 import geo.Geocode;
 import geo.LangDetection;
+import twitter.controller.BaseController;
+import twitter.model.ObservableCrawling;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -26,6 +31,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.eclipse.jdt.internal.compiler.batch.FileSystem;
 
 import analyzer.HashUrlAnalyzer;
 import analyzer.TweetsAnalyzer;
@@ -35,16 +41,28 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 import uclassify.Uclass;
 public class IndexTweet {
-	private static ArrayList<User> users;
-	private static ArrayList<Status> statuses;
+	private  ArrayList<User> users;
+	private  ArrayList<Status> statuses;
 	
-	public static void main(String[]  args ) {
+	public void crawl() throws IOException {
+		Path pathx;
+		pathx = FileSystems.getDefault().getPath("WebContent", "");
+	    PrintWriter writer = new PrintWriter(pathx+"/resources/crawling.txt", "UTF-8");
+	    writer.println("Initializing Crawling process...");
+	    
 		GetUsers gu = new GetUsers();
 		TweetMap tmap = gu.getTweetMap();
 		Uclass uc = new Uclass();
 		LangDetection ld = new LangDetection();
 		Geocode gc = new Geocode();
 		int tweetnum = 0;
+
+		  
+
+//	      ObservableCrawling ov = new ObservableCrawling("");
+//	      BaseController to = new BaseController(ov);
+//	      ov.addObserver(to);
+		
 		
 		while(gu.isWorking()){
 			try {
@@ -55,7 +73,8 @@ public class IndexTweet {
 			}
 		}
 		
-		System.out.println("++++++++++++++++ indicizzazione ++++++++++++++++++");
+		writer.println("++++++++++++++++ indicizzazione ++++++++++++++++++");
+//		ov.setValue("++++++++++++++++ indicizzazione ++++++++++++++++++");
 		String tmpTweets = "";
 		String age = "";
 		String gender = "";
@@ -124,7 +143,7 @@ public class IndexTweet {
 			iWriter = new IndexWriter(directory,config);
 			for(int i=0; i<tweetnum; i++){
 				iWriter.addDocument(tweet[i].getDocument());
-				System.out.println("indicizzo doc: "+(i+1));
+				writer.println("indicizzo doc: "+(i+1));
 			}
 			iWriter.close();
 		} 
@@ -133,7 +152,7 @@ public class IndexTweet {
 //			e.printStackTrace();
 			System.out.println("error null pointer");
 		}		
-			
+		  writer.close();	
 	}
 	
 }
