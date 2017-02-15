@@ -34,12 +34,9 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.User;
 import uclassify.Uclass;
-
 public class IndexTweet {
 	private static ArrayList<User> users;
 	private static ArrayList<Status> statuses;
-	
-
 	
 	public static void main(String[]  args ) {
 		GetUsers gu = new GetUsers();
@@ -113,7 +110,7 @@ public class IndexTweet {
 		try 
 		{
 
-			//aWrapper = new PerFieldAnalyzerWrapper(new StandardAnalyzer(), analyzerPerField);
+			aWrapper = new PerFieldAnalyzerWrapper(new StandardAnalyzer(), analyzerPerField);
 
 			
 			Path path;
@@ -133,10 +130,10 @@ public class IndexTweet {
 		} 
 		catch (IOException|NullPointerException e) 
 		{
-			e.printStackTrace();
+//			e.printStackTrace();
 			System.out.println("error null pointer");
 		}		
 			
 	}
-
+	
 }

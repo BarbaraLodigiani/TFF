@@ -39,7 +39,7 @@ public class GetUsers {
             
             String num = prop.getProperty("max_num_user");
             
-            this.MAX_NUM_USER = 5;
+            this.MAX_NUM_USER = Integer.parseInt(num);
         }
 		
 		
