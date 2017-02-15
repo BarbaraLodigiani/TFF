@@ -2,17 +2,24 @@ package ir;
 import geo.Geocode;
 import geo.LangDetection;
 import twitter.controller.BaseController;
-import twitter.model.ObservableCrawling;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -41,15 +48,31 @@ import twitter4j.TwitterException;
 import twitter4j.User;
 import uclassify.Uclass;
 public class IndexTweet {
-	private  ArrayList<User> users;
-	private  ArrayList<Status> statuses;
+	private   ArrayList<User> users;
+	private   ArrayList<Status> statuses;
 	
-	public void crawl() throws IOException {
+	public void crawl() throws IOException{
+//		Path pathx;
+//		pathx = FileSystems.getDefault().getPath("WebContent", "");
+//	    PrintWriter writer = new PrintWriter(new FileOutputStream(pathx+"/resources/crawling.txt"), true);
+//	    System.out.println("sto scrivendo");
+//	    writer.println("Initializing Crawling process...");
+//	    writer.close();
+//	    System.out.println("ho finito");
 		Path pathx;
 		pathx = FileSystems.getDefault().getPath("WebContent", "");
-	    PrintWriter writer = new PrintWriter(pathx+"/resources/crawling.txt", "UTF-8");
-	    writer.println("Initializing Crawling process...");
-	    
+		String timeStamp;
+	    try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathx+"/resources/crawling.txt", true), StandardCharsets.UTF_8))) {
+	    	timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+	    	writer.append("Default Crawling process started at: "+timeStamp+"\n\n");
+	    	timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+	    	writer.append("Crawler started at: "+timeStamp+"\n\n");	    	
+	    } 
+	    catch (IOException ex) {
+	        System.out.println(ex.toString());
+	    }
+		
+		
 		GetUsers gu = new GetUsers();
 		TweetMap tmap = gu.getTweetMap();
 		Uclass uc = new Uclass();
@@ -73,7 +96,7 @@ public class IndexTweet {
 			}
 		}
 		
-		writer.println("++++++++++++++++ indicizzazione ++++++++++++++++++");
+		//writer.append("++++++++++++++++ indicizzazione ++++++++++++++++++");
 //		ov.setValue("++++++++++++++++ indicizzazione ++++++++++++++++++");
 		String tmpTweets = "";
 		String age = "";
@@ -131,6 +154,16 @@ public class IndexTweet {
 
 			aWrapper = new PerFieldAnalyzerWrapper(new StandardAnalyzer(), analyzerPerField);
 
+		    try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathx+"/resources/crawling.txt", true), StandardCharsets.UTF_8))) {
+		    	timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		    	writer.append("Crawler finished at:"+timeStamp+"\n\n");
+		    	timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		    	writer.append("Indexing started at:"+timeStamp+"\n\n");	    	
+		    } 
+		    catch (IOException ex) {
+		        System.out.println(ex.toString());
+		    }
+			
 			
 			Path path;
 			Directory directory;
@@ -143,8 +176,12 @@ public class IndexTweet {
 			iWriter = new IndexWriter(directory,config);
 			for(int i=0; i<tweetnum; i++){
 				iWriter.addDocument(tweet[i].getDocument());
-				writer.println("indicizzo doc: "+(i+1));
-			}
+			    try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathx+"/resources/crawling.txt", true), StandardCharsets.UTF_8))) {
+			    	writer.append("Indexing "+(i+1)+" Tweep\n");	    	
+			    } 
+			    catch (IOException ex) {
+			        System.out.println(ex.toString());
+			    }			}
 			iWriter.close();
 		} 
 		catch (IOException|NullPointerException e) 
@@ -152,7 +189,6 @@ public class IndexTweet {
 //			e.printStackTrace();
 			System.out.println("error null pointer");
 		}		
-		  writer.close();	
 	}
 	
 }

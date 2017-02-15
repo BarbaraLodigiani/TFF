@@ -1,9 +1,16 @@
 package ir;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -29,7 +36,16 @@ public class GetUsers {
 	// private static ArrayList<Status> statuses;
 	// TODO Auto-generated method stub
 
-	public GetUsers() {
+	public GetUsers() throws IOException {
+ 
+//		String content = "This is the content to write into a file";
+//		FileWriter fw = new FileWriter(pathx+"/resources/crawling.txt");
+//		BufferedWriter bw = new BufferedWriter(fw);
+//		bw.write(content);
+//		bw.close();
+//	    System.out.println("ho finito");
+		
+		
 
 		Properties prop = new Properties();
 
@@ -63,6 +79,7 @@ public class GetUsers {
 				new double[][] { new double[] { -126.562500, 30.448674 }, new double[] { -61.171875, 44.087585 } });
 		filtre.language(new String[] { "en" });
 		twitterStream.filter(filtre);
+		
 
 		return tmap;
 
@@ -114,64 +131,57 @@ public class GetUsers {
 			public void onStatus(Status status) {
 
 				ArrayList<Status> statuses = new ArrayList<Status>();
-				Path pathx;
-				pathx = FileSystems.getDefault().getPath("WebContent", "");
+User user = status.getUser();
 
-				FileWriter fw;
-				try {
-					fw = new FileWriter(pathx + "/resources/crawling.txt", true);
-					// TODO Auto-generated catch block
-					fw.write("sono in getstatuslistener");
-					
+				if (!check_users.contains(user) && check_users.size() < MAX_NUM_USER)
+					if (user.isGeoEnabled())
+						if (user.getLocation() != null && !user.getLocation().isEmpty())
+							if (user.getLocation().length() > 1)
+								if (user.getStatusesCount() > 199)
+									if (new Geocode().checkLocation(user.getLocation()))
 
-					User user = status.getUser();
+									{
+										try {
+											statuses = getTweetListByUser(user);
+										} catch (TwitterException e) {
+											// TODO Auto-generated catch
+											// block
+											// e.printStackTrace();
 
-					if (!check_users.contains(user) && check_users.size() < MAX_NUM_USER)
-						if (user.isGeoEnabled())
-							if (user.getLocation() != null && !user.getLocation().isEmpty())
-								if (user.getLocation().length() > 1)
-									if (user.getStatusesCount() > 199)
-										if (new Geocode().checkLocation(user.getLocation()))
-
-										{
 											try {
-												statuses = getTweetListByUser(user);
-											} catch (TwitterException e) {
+												System.out.println("***** statusize = " + statuses.size()
+														+ " ******* sto dormendo per "
+														+ e.getRateLimitStatus().getSecondsUntilReset()
+														+ " secondi **********");
+												Thread.sleep(e.getRateLimitStatus().getSecondsUntilReset() * 1000);
+											} catch (InterruptedException e1) {
 												// TODO Auto-generated catch
 												// block
-												// e.printStackTrace();
-
-												try {
-													System.out.println("***** statusize = " + statuses.size()
-															+ " ******* sto dormendo per "
-															+ e.getRateLimitStatus().getSecondsUntilReset()
-															+ " secondi **********");
-													Thread.sleep(e.getRateLimitStatus().getSecondsUntilReset() * 1000);
-												} catch (InterruptedException e1) {
-													// TODO Auto-generated catch
-													// block
-													e1.printStackTrace();
-												}
+												e1.printStackTrace();
 											}
-
-											if (statuses.size() == 200) {
-												check_users.add(user);
-
-												tmap.add(user, statuses);
-
-												fw.write("*******" + (c++) + ":  @"
-														+ status.getUser().getScreenName() + " - " + status.getText());
-												fw.write("NUMERO TWEETS:" + statuses.size() + "\n\n");
-											} else
-												System.out.println("- - - saltooooo - - -" + "\n\n");
-
 										}
-					fw.close();
 
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} // appends the string to the file
+										if (statuses.size() == 200) {
+											check_users.add(user);
+
+											tmap.add(user, statuses);
+											Path pathx;
+											pathx = FileSystems.getDefault().getPath("WebContent", "");
+										    try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathx+"/resources/crawling.txt", true), StandardCharsets.UTF_8))) {
+										        writer.append("*******" + (c++) + ":  @"+ status.getUser().getScreenName() + " - " + status.getText()+"\n");
+										        writer.append("tweets: 100\n\n");
+										    } 
+										    catch (IOException ex) {
+										        System.out.println(ex.toString());
+										    }
+//												fw.write("*******" + (c++) + ":  @"
+//														+ status.getUser().getScreenName() + " - " + status.getText());
+//												fw.write("NUMERO TWEETS:" + statuses.size() + "\n\n");
+										} else
+											System.out.println("- - - saltooooo - - -" + "\n\n");
+
+									}
+//					fw.close();
 				if (check_users.size() == MAX_NUM_USER) {
 
 					working = false;

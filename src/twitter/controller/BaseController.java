@@ -1,6 +1,13 @@
 package twitter.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -28,7 +35,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ir.IndexTweet;
 import searchengine.Queries;
 import twitter.model.OAuthToken;
-import twitter.model.ObservableCrawling;
 import twitter.model.Ricerca;
 import twitter.model.TFFER;
 import twitter.validator.RicercaValidator;
@@ -324,6 +330,8 @@ public String crawling(Model model,
 		HttpServletRequest request, HttpServletResponse response) 
 		throws Exception {
 
+	
+	
 	IndexTweet crawling = new IndexTweet();
 	crawling.crawl();
 		
@@ -333,6 +341,21 @@ public String crawling(Model model,
 }
 
 
+@RequestMapping(value = "/admin/readFile", method = RequestMethod.GET)
+@ResponseBody
+public String read(Model model,
+		HttpServletRequest request, HttpServletResponse response) 
+		throws Exception {
+	Path pathx;
+	pathx = FileSystems.getDefault().getPath("WebContent", "");
 
+	File file = new File(""+pathx+"/resources/crawling.txt");
+	FileInputStream fis = new FileInputStream(file);
+	byte[] data = new byte[(int) file.length()];
+	fis.read(data);
+	fis.close();
+	String str = new String(data, "UTF-8");
 
+	return str;
+}
 }

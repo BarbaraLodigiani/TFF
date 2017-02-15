@@ -343,14 +343,14 @@ color:#555;
 <!-- </div> -->
 	<div class="container-fluid">
 		<div class="row content">
-			<div class="col-sm-3 sidenav">
+			<div class="col-sm-3 sidenav" align="center">
 				<h4><img class="img-responsive" src="http://i.imgur.com/p8XFYQn.png"/></h4>
 	
 
 
-					<button type="submit" onclick="crawling()" class="btn btn-default">Avvia Crawling Default</button>
-
-
+					<button id="crawlbutton" type="submit" onclick="crawling()" class="btn btn-default">Avvia Crawling Default</button>
+<br><br>
+<img src="http://d2nsgnoj157yga.cloudfront.net/content/assets/img/loading2.gif" height="64" width="64" style="display:none" id="loadcrawl" />
 			</div>
 
 			<div class="col-sm-9" id="responses">
@@ -390,31 +390,52 @@ color:#555;
 	});
 	
 	function crawling(){
-		$('#responses').html("Crawling is running");
-		setInterval(readfile() , 500);
+// 		$('#responses').html("Starting Default Crawling process at "+new Date);
+// 		$('#responses').append("Crawler started at "+new Date);		
+					$('#crawlbutton').prop("disabled",true);
+					$("#loadcrawl").show();
+		var refreshIntervalId =		setInterval(function(){		
+			
+			$.ajax({url : '/TwitterFollowingFinder/admin/readFile',method : 'GET',async : true,complete : function(data) {
+				if(data.status == 200){ 
+					$('#responses').html(data.responseText.replace(/\n/g, "<br />"));
+				}
+				
+			}
+		});
+			
+} , 200);
 
 
 		
 		$.ajax({url : '/TwitterFollowingFinder/admin/crawling',method : 'GET',async : true,complete : function(data) {
 			if(data.status == 200){ 
-				$('#responses').html("Crawling is successfully finished!");
+				clearInterval(refreshIntervalId);
+
+				$('#responses').append("<br><br>Crawling is successfully finished at: "+new Date);
+				$('#crawlbutton').prop("disabled",false);
+				$("#loadcrawl").hide();
+
 			}
 			
 		}
 	});
+		
+
 	}
 	
 	
 	function readfile()
 	{
+		$('#responses').append("ok");
+
 		var txtFile = new XMLHttpRequest();
 		txtFile.open("GET", "<c:url value="/resources/crawling.txt" />", true);
 		txtFile.onreadystatechange = function() {
 		  if (txtFile.readyState === 4) {  // Makes sure the document is ready to parse.
 		    if (txtFile.status === 200) {  // Makes sure it's found the file.
 		      allText = txtFile.responseText; 
-		      lines = txtFile.responseText.split("\n"); // Will separate each line into an array
-				$('#responses').append("<br>"+lines);
+				$('#responses').append(allText);
 
 		    }
 		  }
