@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +12,7 @@
 <title>Twitter Following Finder</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="<c:url value="/resources/auth-buttons.css" />" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
@@ -99,7 +102,7 @@ position:relative;
 .panel.panel-card {
 	position: relative;
 	height: 260px;
-	border: none;
+	border: 1px solid #eee;
 	overflow: hidden;
 }
 
@@ -244,18 +247,118 @@ text-transform:uppercase;
 margin:-10px 0 10px 0;
 }
 
+p.speech {
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #fff;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 2px 2px 0px #333;
+  -moz-box-shadow: 2px 2px 0px #333;
+  box-shadow: 2px 2px 0px #333;
+  top: 100px;
+  left:100px;
+  color: #333;
+}
+
+p.speech:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 85px;
+  top: -30px;
+  border: 15px solid;
+  border-color: transparent  #fff #fff transparent;
+}
+
+p.tweetsbutton{
+	opacity: 0;
+	margin-top:6px;
+	-webkit-transition: display 400ms ease-in-out;
+	transition: display 400ms ease-in-out;
+}
+.panel.panel-card:hover .tweetsbutton {
+opacity:1;
+	-webkit-transition: opacity 600ms ease-in-out;
+	transition: opacity 600ms ease-in-out;
+}
+
+div.twitter-tweet-rendered p.entry-title {
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    padding: 20px 10px 10px 10px !important;
+    background: #eee !important;
+    max-width: 90% !important;
+    position:relative;
+    text-align:justify;
+}
+
+div.twitter-tweet-rendered p.entry-title a.link {
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+}
+
+div.twitter-tweet-rendered div.twt-border {
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+div.twitter-tweet-rendered p.entry-title:before{
+content:'“';
+display:block;
+position:absolute;
+top:-10px;
+left:0px;
+font-size:40px;
+font-family:Georgia;
+color:#555;
+}
+
+
+div.twitter-tweet-rendered p.entry-title:after{
+content:'”';
+
+display:block;
+position:absolute;
+bottom:-30px;
+right:0px;
+font-size:40px;
+font-family:Georgia;
+color:#555;
+}
+
 </style>
 
 
 </head>
 <body>
-
+<div id="loading" style="position:absolute; top:0px; left:0px; z-index:100; height:100%; width:100%; background:#5BA8E2" align="center">
+<img src="https://theultralinx.com/.image/MTM3NDI5MTcxNjg0MTIzODE2/twittercelebrationgif.gif" style="margin:0 auto;"/>
+</div>
 	<div class="container-fluid">
 		<div class="row content">
 			<div class="col-sm-3 sidenav">
 				<h4><img class="img-responsive" src="http://i.imgur.com/p8XFYQn.png"/></h4>
-
-				<form:form action="ricerca" method="POST" commandName="FormRicerca">
+								<p class="speech" class="alert-link">
+								<c:choose>
+									<c:when test="${empty TFFER}">
+									<a class="btn-auth btn-twitter" href="/TwitterFollowingFinder/signin">
+									    Sign in with <b>Twitter</b>
+									</a>
+									</c:when>
+									<c:otherwise>
+									    Welcome <b>${TFFER}</b>!
+									</c:otherwise>
+								</c:choose>
+					</p>
+					
+				<form:form action="/TwitterFollowingFinder/search" method="POST" commandName="FormRicerca">
 					<div class="form-group">
 					<div style="display:none">
 					<form:input type="text"  class="form-control" id="index"
@@ -332,6 +435,7 @@ margin:-10px 0 10px 0;
 			</div>
 
 			<div class="col-sm-9 risultati">
+
 						<c:choose>
 							<c:when test="${empty risSize}">
 								<div class="numris"><h3>Search for Tweeps!</h3></div>
@@ -341,6 +445,7 @@ margin:-10px 0 10px 0;
 							</c:otherwise>
 						</c:choose>
 				<c:set var="risindex" value="${risSize-1}"/>
+				<c:set var="followingString" value="${TFFERFollowing}"/>
 			
 				<div class="container-fluid bg-3 text-center">
 					<div class="row">
@@ -348,26 +453,39 @@ margin:-10px 0 10px 0;
 						<c:choose>
 							<c:when test="${empty risultati and not empty risSize}">
 							<div class="alert alert-danger" role="alert">
-								  <a href="#" class="alert-link">Oh snap! Change a few things up and try submitting again.</a>
+								  <span class="alert-link">Oh snap! Change a few things up and try submitting again.</span>
 								</div>
 								<c:set var="risindex" value="0"/>
 							</c:when>
 							<c:when test="${empty risultati and empty risSize}">
 							<div class="alert alert-info" role="alert">
-  <a href="#" class="alert-link">Looking for Tweeps to follow is easy now! Try it!</a>
+  <span class="alert-link">Looking for Tweeps to follow is easy now! Try it!</span>
 </div>
 							</c:when>
 							  <c:otherwise>
 							  	<ul>
-									<c:forEach begin="0" end="${risindex}" var="index">
+									<c:forEach begin="${startPage}" end="${endPage}" var="index">
 
-
+										<c:set var="nameUser" value="${risultati.getJSONObject(index).get('user')}" />
 										<div class="col-sm-12 col-md-4">
 											<div class="panel panel-default panel-card">
-												<div class="panel-heading">
+												<div class="panel-heading" data-toggle="tooltip" data-placement="bottom" title="${risultati.getJSONObject(index).get('location')}">
 													<img
 														src="https://maps.googleapis.com/maps/api/staticmap?center=${risultati.getJSONObject(index).get('location')}&size=340x200&key=AIzaSyD5Q0p6ZG4Mb2wHMApIb_LqS6zoBlBPdZw" />
-													<button class="btn btn-primary btn-sm" role="button">Follow</button>
+														<c:set var="nameTweep" value="${risultati.getJSONObject(index).get('name')}"/>
+													<c:if test="${not empty TFFER and not TFFER.equals(nameTweep)}">
+													<c:choose>
+														<c:when test="${fn:contains(followingString, risultati.getJSONObject(index).get('user'))}">
+															<button id="unfollow${nameUser}" onclick="unfollow('${nameUser}')"  class="btn btn-danger btn-sm" role="button">Unfollow</button>
+															<button id="follow${nameUser}" onclick="follow('${nameUser}')" class="btn btn-primary btn-sm" style="display:none" role="button">Follow</button>
+														
+														</c:when>
+														<c:otherwise>
+															<button id="follow${nameUser}" onclick="follow('${nameUser}')" class="btn btn-primary btn-sm" role="button">Follow</button>
+															<button id="unfollow${nameUser}" style="display:none" onclick="unfollow('${nameUser}')"  class="btn btn-danger btn-sm" role="button">Unfollow</button>
+														</c:otherwise>
+													</c:choose>
+													</c:if>
 												</div>
 												<div class="panel-figure">
 													<img class="img-responsive img-circle"
@@ -375,23 +493,34 @@ margin:-10px 0 10px 0;
 												</div>
 												<div class="panel-body text-center">
 													<h4 class="panel-header">
-														<a href="https://twitter.com/${risultati.getJSONObject(index).get("user")}">@${risultati.getJSONObject(index).get("user")}</a>
+														<a href="https://twitter.com/${risultati.getJSONObject(index).get('user')}" target="_blank">@${risultati.getJSONObject(index).get("user")}</a>
 													</h4>
 													<div class="realname">${risultati.getJSONObject(index).get("name")}</div>
 													<p class="tweet">${risultati.getJSONObject(index).get('tweet')}</p>
+													<p class="tweetsbutton">
+													<button id="tweets${index}" onclick="tweets('${index}','${nameUser}')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" role="button">Show Tweets</button>
+													</p>
 												</div>
 												<div class="panel-thumbnails">
 													<div class="row">
 														<div class="col-xs-4">
-															<div class="thumbnail">
+															<div class="thumbnail" data-toggle="tooltip" data-placement="top" title="Estimed Age">
 																${risultati.getJSONObject(index).get('age')}</div>
 														</div>
 														<div class="col-xs-4">
-															<div class="thumbnail">
+															<div class="thumbnail" data-toggle="tooltip" data-placement="top" title="Estimed Gender">
 																${risultati.getJSONObject(index).get('gender')}</div>
 														</div>
 														<div class="col-xs-4">
-															<div class="thumbnail">:)</div>
+														<c:set var="attitude" value="${Math.random() * 10}" />
+														<c:choose>
+															<c:when test="${attitude < 7}">
+															<div class="thumbnail" data-toggle="tooltip" data-placement="top" title="Estimed Attitude">:)</div>
+															</c:when>
+															<c:otherwise>
+															<div class="thumbnail" data-toggle="tooltip" data-placement="top" title="Estimed Attitude">:(</div>
+															</c:otherwise>
+														</c:choose>
 														</div>
 													</div>
 												</div>
@@ -399,6 +528,20 @@ margin:-10px 0 10px 0;
 										</div>
 									</c:forEach>
 								</ul>
+								<div class="col-sm-12 col-md-12">
+								<ul class="pagination">
+								<c:forEach begin="1" end="${(risSize + 30 - 1) / 30}" var="pageIndex">
+									<c:choose>
+									<c:when test="${page eq pageIndex}">
+									<li class="active"><a href="/TwitterFollowingFinder/search/${pageIndex}">${pageIndex}</a></li>
+									</c:when>
+									<c:otherwise>
+									<li><a href="/TwitterFollowingFinder/search/${pageIndex}">${pageIndex}</a></li>
+									</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								</ul>
+								</div>
 							</c:otherwise>
 							</c:choose>
 						</div>
@@ -409,11 +552,36 @@ margin:-10px 0 10px 0;
 			</div>
 		</div>
 	</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><img src="https://cdn2.iconfinder.com/data/icons/neon-line-social-circles/100/Neon_Line_Social_Circles_50Icon_10px_grid-36-32.png" /> Tweets of <span id="nameofTweets"></span></h4>
+      </div>
+      <div class="modal-body" align="center">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 	<footer class="container-fluid">
 		<p>Footer Text</p>
 	</footer>
 	<script>
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip(); 
+	    setTimeout(function(){ $('#loading').slideUp(); }, 2000);
+
+	    
+	});
+	
 var imgLoad = imagesLoaded('#risultati');
 imgLoad.on( 'progress', function( instance, image ) {
 	  var $item = $( image.img ).parent();
@@ -423,6 +591,74 @@ imgLoad.on( 'progress', function( instance, image ) {
 			    $( image.img ).attr('src', 'http://www.webtus.net/wp-content/uploads/2016/05/Icon-Twitter-300x300.png');
 	  }
 });
+
+
+function follow(name){
+	$('#follow'+name).prop("disabled",true);
+	$.ajax({url : '/TwitterFollowingFinder/follow/'+name+'',method : 'GET',async : false,complete : function(data) {
+		console.log(data.responseText);
+		if(data.responseText == "true"){
+			
+			$('#follow'+name).hide();
+			$('#follow'+name).prop("disabled",false);
+
+			$('#unfollow'+name).show();
+			alert("Successful Following! You are now following this tweep!")
+
+		}else{
+			alert("Unsuccessful Following! Something went wrong!");
+			$('#follow'+name).prop("disabled",false);
+
+		}
+		
+	}});
+}
+
+function unfollow(name){
+	$('#unfollow'+name).prop("disabled",true);
+	$.ajax({url : '/TwitterFollowingFinder/unfollow/'+name+'',method : 'GET',async : false,complete : function(data) {
+		console.log(data.responseText);
+		if(data.responseText == "true"){
+			
+			$('#unfollow'+name).hide();
+			$('#unfollow'+name).prop("disabled",false);
+
+			$('#follow'+name).show();
+			alert("Successful Unfollowing! You don't follow this tweep anymore!")
+
+		}else{
+			alert("Unsuccessful Unfollowing! Something went wrong!");
+			$('#unfollow'+name).prop("disabled",false);
+
+		}
+		
+	}});
+}
+
+
+function tweets(id, name){
+	$('#tweets'+id).prop("disabled",true);
+	$('.modal-body').html('<img src="http://www.wallpaperama.com/post-images/forums/200903/07p-6606-loading-photo.gif" />');
+	$.ajax({url : '/TwitterFollowingFinder/tweets/'+id+'',method : 'GET',async : false,complete : function(data) {
+		if(data.status == 200){
+			$('#tweets'+id).prop("disabled",false);
+			$('#nameofTweets').text('@'+name);
+			$('.modal-body').html('');
+			var results = JSON.parse(data.responseText);
+			console.log(results.myArrayList);
+		      console.log(results.jsonarray);
+
+			   $.each(results.myArrayList, function (index, value) {
+				   if(index < 100)
+				      $('.modal-body').append('<div class="twitter-tweet-rendered"><p class="entry-title"> '+value+'</p></div>');
+			   		});
+
+		}else{
+			$('#tweets'+id).prop("disabled",false);
+		}
+		
+	}});
+}
 </script>
 </body>
 </html>

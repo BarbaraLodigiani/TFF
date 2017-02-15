@@ -92,8 +92,11 @@ public class Results {
 		    for (Document result : resultsStore)
 		    {
 		         JSONObject resultJSON = new JSONObject();
-
-		         resultJSON.put("tweet", tweetsStore.get(i));
+		          String fragment = tweetsStore.get(i).toString();
+			      String fragments[] = fragment.split("%NUOVOTWEET%");
+			       
+		         resultJSON.put("tweet", fragments[0]);
+		         resultJSON.put("tweets", tweetsStore.get(i));
 		         resultJSON.put("user", result.getField("user").stringValue());
 		         resultJSON.put("name", result.getField("name").stringValue());
 		         resultJSON.put("location", result.getField("location").stringValue());

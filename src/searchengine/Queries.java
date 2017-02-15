@@ -308,19 +308,20 @@ public class Queries {
 //			    fragment = "<B></B>"+book.get("tweetsStem").substring(0, 400);
 //			}
 			if(fragment == null){
-			    fragment = "<B></B>"+book.get("tweetsStem").substring(0, 400);
+			    fragment = "<B></B>"+book.get("tweets");
 			}
 	        String fragments[] = fragment.split("%NUOVOTWEET%");
-	        int firsttweet = 0;
-	        for (int j = 0; j < fragments.length; j++) {
-	        	if(fragments[j].contains("<B>")&&(firsttweet==0)){
-	        		tweetsfound.add((fragments[j].toString()));
-//		       	 	System.out.println(fragments[j].toString());
-		            firsttweet++;
-	        	 }
-	        }
+	        tweetsfound.add(fragment);
+//	        int firsttweet = 0;
+//	        for (int j = 0; j < fragments.length; j++) {
+//	        	if(fragments[j].contains("<B>")&&(firsttweet==0)){
+//	        		tweetsfound.add((fragments[j].toString()));
+////		       	 	System.out.println(fragments[j].toString());
+//		            firsttweet++;
+//	        	 }
+//	        }
 			booksfound.add(book);
-			tweetsfound.add("");
+			//tweetsfound.add("");
 		}
 		
 	
