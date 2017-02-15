@@ -221,7 +221,7 @@ public class BaseController {
 		String redirectUrl = null;
 		try {
 
-			String callbackURL = "http://127.0.0.1:8000/TwitterFollowingFinder/";
+			String callbackURL = "http://127.0.0.1:8080/TwitterFollowingFinder/";
 			requestToken = twitter.getOAuthRequestToken(callbackURL);
 			String token = requestToken.getToken();
 			String tokenSecret = requestToken.getTokenSecret();

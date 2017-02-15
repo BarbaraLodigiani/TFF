@@ -45,77 +45,77 @@ public class TestCase {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
-	// @Test
-	// public void test1() throws Exception {
-	// driver.get(baseUrl + "TwitterFollowingFinder/");
-	// new
-	// Select(driver.findElement(By.id("age"))).selectByVisibleText("13-17");
-	// new
-	// Select(driver.findElement(By.id("gender"))).selectByVisibleText("Male");
-	// driver.findElement(By.cssSelector("button.btn.btn-default")).click();
-	// Thread.sleep(1000);
-	// assertFalse(driver.getPageSource().contains(risultato));
-	// assertFalse(driver.getPageSource().contains(error));
-	// }
-//
-//	@Test
-//	public void test2() throws Exception {
-//		driver.get(baseUrl + "TwitterFollowingFinder/");
-//		driver.findElement(By.id("location")).clear();
-//		driver.findElement(By.id("location")).sendKeys("New York");
-//		driver.findElement(By.id("interests")).clear();
-//		driver.findElement(By.id("interests")).sendKeys("music love");
-//		driver.findElement(By.id("radioInt1")).click();
-//		driver.findElement(By.id("hashtags")).clear();
-//		driver.findElement(By.id("hashtags")).sendKeys("happy love");
-//		driver.findElement(By.id("radioHash1")).click();
-//		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
-//		Thread.sleep(1000);
-//		assertFalse(driver.getPageSource().contains(risultato));
-//		assertFalse(driver.getPageSource().contains(error));
-//	}
-//
-//	@Test
-//	public void test6() throws Exception {
-//		driver.get(baseUrl + "TwitterFollowingFinder/");
-//		driver.findElement(By.id("location")).clear();
-//		driver.findElement(By.id("location")).sendKeys("san diego");
-//		driver.findElement(By.id("interests")).clear();
-//		driver.findElement(By.id("interests")).sendKeys("love music");
-//		driver.findElement(By.id("radioInt1")).click();
-//		new Select(driver.findElement(By.id("age"))).selectByVisibleText("65-100");
-//		new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Male");
-//		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
-//		Thread.sleep(1000);
-//		assertFalse(driver.getPageSource().contains(risultato));
-//		assertFalse(driver.getPageSource().contains(error));
-//	}
-//	
-//	@Test
-//	public void test8() throws Exception {
-//		driver.get(baseUrl + "TwitterFollowingFinder/");
-//		driver.findElement(By.id("location")).clear();
-//		driver.findElement(By.id("location")).sendKeys("New York");
-//		driver.findElement(By.id("hashtags")).clear();
-//		driver.findElement(By.id("hashtags")).sendKeys("happy fitness");
-//		driver.findElement(By.id("radioHash2")).click();
-//		new Select(driver.findElement(By.id("age"))).selectByVisibleText("18-25");
-//		new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Female");
-//		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
-//		Thread.sleep(1000);
-//		assertFalse(driver.getPageSource().contains(risultato));
-//		assertFalse(driver.getPageSource().contains(error));
-//	}
-//	
-//	@Test
-//	public void test13() throws Exception {
-//		driver.get(baseUrl + "TwitterFollowingFinder/");
-//		new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Female");
-//		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
-//		Thread.sleep(1000);
-//		assertFalse(driver.getPageSource().contains(risultato));
-//		assertFalse(driver.getPageSource().contains(error));
-//	}
+	 @Test
+	 public void test1() throws Exception {
+	 driver.get(baseUrl + "TwitterFollowingFinder/");
+	 new
+	 Select(driver.findElement(By.id("age"))).selectByVisibleText("13-17");
+	 new
+	 Select(driver.findElement(By.id("gender"))).selectByVisibleText("Male");
+	 driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+	 Thread.sleep(1000);
+	 assertFalse(driver.getPageSource().contains(risultato));
+	 assertFalse(driver.getPageSource().contains(error));
+	 }
+
+	@Test
+	public void test2() throws Exception {
+		driver.get(baseUrl + "TwitterFollowingFinder/");
+		driver.findElement(By.id("location")).clear();
+		driver.findElement(By.id("location")).sendKeys("New York");
+		driver.findElement(By.id("interests")).clear();
+		driver.findElement(By.id("interests")).sendKeys("music love");
+		driver.findElement(By.id("radioInt1")).click();
+		driver.findElement(By.id("hashtags")).clear();
+		driver.findElement(By.id("hashtags")).sendKeys("happy love");
+		driver.findElement(By.id("radioHash1")).click();
+		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+		Thread.sleep(1000);
+		assertFalse(driver.getPageSource().contains(risultato));
+		assertFalse(driver.getPageSource().contains(error));
+	}
+
+	@Test
+	public void test6() throws Exception {
+		driver.get(baseUrl + "TwitterFollowingFinder/");
+		driver.findElement(By.id("location")).clear();
+		driver.findElement(By.id("location")).sendKeys("san diego");
+		driver.findElement(By.id("interests")).clear();
+		driver.findElement(By.id("interests")).sendKeys("love music");
+		driver.findElement(By.id("radioInt1")).click();
+		new Select(driver.findElement(By.id("age"))).selectByVisibleText("65-100");
+		new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Male");
+		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+		Thread.sleep(1000);
+		assertFalse(driver.getPageSource().contains(risultato));
+		assertFalse(driver.getPageSource().contains(error));
+	}
+	
+	@Test
+	public void test8() throws Exception {
+		driver.get(baseUrl + "TwitterFollowingFinder/");
+		driver.findElement(By.id("location")).clear();
+		driver.findElement(By.id("location")).sendKeys("New York");
+		driver.findElement(By.id("hashtags")).clear();
+		driver.findElement(By.id("hashtags")).sendKeys("happy fitness");
+		driver.findElement(By.id("radioHash2")).click();
+		new Select(driver.findElement(By.id("age"))).selectByVisibleText("18-25");
+		new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Female");
+		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+		Thread.sleep(1000);
+		assertFalse(driver.getPageSource().contains(risultato));
+		assertFalse(driver.getPageSource().contains(error));
+	}
+	
+	@Test
+	public void test13() throws Exception {
+		driver.get(baseUrl + "TwitterFollowingFinder/");
+		new Select(driver.findElement(By.id("gender"))).selectByVisibleText("Female");
+		driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+		Thread.sleep(1000);
+		assertFalse(driver.getPageSource().contains(risultato));
+		assertFalse(driver.getPageSource().contains(error));
+	}
 	
 	@Test
 	public void test21() throws Exception {

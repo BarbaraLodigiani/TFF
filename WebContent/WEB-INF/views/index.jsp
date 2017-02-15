@@ -338,9 +338,9 @@ color:#555;
 
 </head>
 <body>
-<div id="loading" style="position:absolute; top:0px; left:0px; z-index:100; height:100%; width:100%; background:#5BA8E2" align="center">
-<img src="https://theultralinx.com/.image/MTM3NDI5MTcxNjg0MTIzODE2/twittercelebrationgif.gif" style="margin:0 auto;"/>
-</div>
+<!-- <div id="loading" style="position:absolute; top:0px; left:0px; z-index:100; height:100%; width:100%; background:#5BA8E2" align="center"> -->
+<!-- <img src="https://theultralinx.com/.image/MTM3NDI5MTcxNjg0MTIzODE2/twittercelebrationgif.gif" style="margin:0 auto;"/> -->
+<!-- </div> -->
 	<div class="container-fluid">
 		<div class="row content">
 			<div class="col-sm-3 sidenav">
@@ -367,15 +367,15 @@ color:#555;
 						<form:errors path="index" cssClass="error" />
 					</div>
 					<div class="form-group">
-						<label for="location">Locations:</label>
+						<label for="location">Location:</label>
 						<form:input type="text" class="form-control" id="location"
-							path="location" />
+							path="location" placeholder="Insert one Location, such as Los Angeles or California"/>
 						<form:errors path="location" cssClass="error" />
 					</div>
 					<div class="form-group">
 						<label for="interests">Interests:</label>
 						<form:input type="text" class="form-control" id="interests"
-							path="interests" />
+							path="interests" placeholder="Insert one or more Interests" />
 						<form:errors path="interests" cssClass="error" />
 					</div>
 					<div>
@@ -389,7 +389,7 @@ color:#555;
 					<div class="form-group">
 						<label for="hashtags">Hashtags:</label>
 						<form:input type="text" class="form-control" id="hashtags"
-							path="hashtags" />
+							path="hashtags" placeholder="Insert one or more Hashtags"/>
 						<form:errors path="hashtags" cssClass="error" />
 					</div>
 					<div>
@@ -405,7 +405,7 @@ color:#555;
 					<div class="form-group">
 						<label for="age">Age:</label>
 						<form:select class="form-control" id="age" path="age">
-							<form:option value="">-</form:option>
+							<form:option value="">Select an age</form:option>
 							<form:option value="13-17">13-17</form:option>
 							<form:option value="18-25">18-25</form:option>
 							<form:option value="26-35">26-35</form:option>
@@ -421,7 +421,7 @@ color:#555;
 					<div class="form-group">
 						<label for="gender">Gender:</label>
 						<form:select class="form-control" id="gender" path="gender">
-							<form:option value="">-</form:option>
+							<form:option value="">Select a gender</form:option>
 							<form:option value="male">Male</form:option>
 							<form:option value="female">Female</form:option>
 						</form:select>
@@ -577,7 +577,7 @@ color:#555;
 	<script>
 	$(document).ready(function(){
 	    $('[data-toggle="tooltip"]').tooltip(); 
-	    setTimeout(function(){ $('#loading').slideUp(); }, 2000);
+// 	    setTimeout(function(){ $('#loading').slideUp(); }, 2000);
 
 	    
 	});
